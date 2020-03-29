@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+
+</head>
+<body>
+<button onclick="getMsg()">授权</button>
+
+<script>
+   function getMsg() {
+        $.ajax({
+            type: "POST",
+            url: "/file/detail",
+            success: function (data) {
+                // console.log(data);
+                getUrl();
+            }
+        })
+    }
+
+     function getToken() {
+        $.ajax({
+            type: "POST",
+            url: "http://127.0.0.1:8081/oauth/token",
+            data: {
+                grant_type: "password",
+                username: "ltx",
+                password: "ltx",
+                client_id: "client",
+                client_secret: "pass",
+                scope: "read",
+            },
+            error:function(data){
+                // alert(JSON.stringify(data))
+                console.log(data);
+            },
+            success: function (data) {
+                data['access_token'];
+                console.log(data);
+            }
+        })
+    }
+
+    function getUrl(token) {
+        $.ajax({
+            type: "POST",
+            url: "http://127.0.0.1:8081/ftptest/",
+            data: {
+                grant_type: "password",
+                username: "ltx",
+                password: "ltx",
+                client_id: "client",
+                client_secret: "pass",
+                scope: "read",
+            },
+            error:function(data){
+                // alert(JSON.stringify(data))
+                console.log(data);
+            },
+            success: function (data) {
+                data['access_token'];
+                console.log(data);
+            }
+        })
+    }
+
+</script>
+</body>
+</html>

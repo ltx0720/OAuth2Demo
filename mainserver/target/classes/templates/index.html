@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+
+</head>
+<body>
+<button onclick="getMsg()">授权</button>
+
+<script>
+    function getMsg() {
+        $.ajax({
+            type: "POST",
+            url: "/file/detail",
+            success: function (data) {
+                // console.log(data);
+                getUrl();
+                window.open("http://www.baidu.com", "new", "top=400,left=1100,width=600,height=500", "location=no", "toolbar=no");
+            }
+        })
+    }
+
+    function getUrl() {
+        $.ajax({
+            type: "POST",
+            url: "http://127.0.0.1:8081/oauth/token",
+            data: {
+                grant_type: "password",
+                username: "ltx",
+                password: "ltx",
+                client_id: "client",
+                client_secret: "pass",
+                scope: "read",
+            },
+            error:function(data){
+                // alert(JSON.stringify(data))
+                console.log(data);
+            },
+            success: function (data) {
+                console.log(data);
+            }
+        })
+
+    }
+
+</script>
+</body>
+</html>

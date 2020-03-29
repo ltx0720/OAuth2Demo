@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+</head>
+<body>
+
+    <form th:action="@{/authentication/form}" method="post">
+        用户名：<input type="text" name="username"><br>
+        密  码：<input type="password" name="password"><br>
+        <input type="submit" value="登录">
+    </form>
+
+    <script>
+
+        function login() {
+            var username = $("#user").val();
+            var password = $("#pwd").val();
+
+            $.ajax({
+                type: "POST",
+                url:"/authentication/form",
+                data:{
+                    "username":username,
+                    "password":password
+                },
+                success:function (data) {
+                    alert(data.success);
+                    if (data.success){
+                        location.href = '/index'
+                    }else {
+                        alert(JSON.stringify(data))
+                    }
+                }
+            })
+        }
+    </script>
+</body>
+</html>
